@@ -24,7 +24,6 @@ public class ComponentItem : MonoBehaviour, IPointerClickHandler {
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
-		Debug.Log ("click");
 		WWWForm wwwForm = new WWWForm ();
 		wwwForm.AddField ("api_type", 3);
 		wwwForm.AddField ("id", componentId);

@@ -26,11 +26,7 @@ public class TypeItem : MonoBehaviour, IPointerClickHandler {
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
-		Debug.Log ("click");
-		//StartCoroutine (loadBundleMesh (ab_url));
-		Debug.Log ("ab_url: " + ab_url + " location: " + location);
 		GetComponent<MeshLoader> ().DownloadMesh (ab_url, location, LoadMesh);
-		
 	}
 		                                      
 	private void LoadMesh(WWW www, string location) {

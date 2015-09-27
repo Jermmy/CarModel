@@ -56,7 +56,6 @@ public class CarBrandScrollView : MonoBehaviour {
 			newItem.GetComponent<CarBrandItem> ().name = dataItems[i]["name"].ToString();
 			newItem.GetComponent<ImageLoader>().DisplayImage(newItem.GetComponent<CarBrandItem>().brandImg, newItem.GetComponent<CarBrandItem> ().img_url);
 			//newItem.transform.localScale = Vector3.one;
-			//newItem.transform.localScale = new Vector3(0.5f,0.5f,0);
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent(gridLayout.transform);
 			newItem.SetActive(true);

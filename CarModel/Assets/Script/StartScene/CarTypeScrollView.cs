@@ -48,19 +48,16 @@ public class CarTypeScrollView : MonoBehaviour {
 			newItem.GetComponent<CarTypeItem>().name = dataItems[i]["name"].ToString();
 			newItem.GetComponent<CarTypeItem>().carText.text = dataItems[i]["name"].ToString();
 			newItem.GetComponent<CarTypeItem>().carModelUrl = dataItems[i]["model_url"].ToString();
-			//Debug.Log("carModelUrl: " + dataItems[i]["model_name"].ToString());
 			newItem.GetComponent<ImageLoader>().DisplayImage(newItem.GetComponent<CarTypeItem>().carImg, dataItems[i]["logo_url"].ToString());
 			JsonData jsonArray = dataItems[i]["components_url"];
 			for (int j = 0; j < jsonArray.Count; ++j) {
 				newItem.GetComponent<CarTypeItem>().componentsUrls.Add(jsonArray[j].ToString());
-				//Debug.Log(jsonArray[j].ToString());
 			}
 			jsonArray = dataItems[i]["components_name"];
 			for (int j = 0; j < jsonArray.Count; ++j) {
 				newItem.GetComponent<CarTypeItem>().componentNames.Add(jsonArray[j].ToString());
 			}
 			//newItem.transform.localScale = Vector3.one;
-			//newItem.transform.localScale = new Vector3(0.5f, 0.5f, 0);
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
 			newItem.SetActive (true);

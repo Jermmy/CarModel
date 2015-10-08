@@ -32,12 +32,12 @@ public class ComponentScrollView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+//		if (car != null && mCamera.GetComponent<TouchEvent> ().mCar != null) {
+//			mCamera.GetComponent<TouchEvent> ().mCar = car.transform;
+//		}
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.LoadLevel("StartScene");
 		}
-//		if (car != null) {
-//			mCamera.RotateAround(car.transform.position, Vector3.up, Time.deltaTime*50);
-//		}
 	}
 
 	void OnGUI() {
@@ -46,23 +46,23 @@ public class ComponentScrollView : MonoBehaviour {
 			//GUI.Window(0, new Rect(1/3 * Screen.width, 1/3 * Screen.height, 1/3 * Screen.width, 1/3 * Screen.height), OnWindow, "");
 			//GUI.Window(0, new Rect(100, 100, 100, 100), OnWindow, "");
 			//Debug.Log("screen width: " + Screen.width + " screen height: " + Screen.height);
-			GUI.Window(0, new Rect(100, 100, 100, 100), OnWindow, "");
+			//GUI.Window(0, new Rect(100, 100, 100, 100), OnWindow, "");
 		}
 	}
 
 	private void OnWindow(int windowId) {
 		//GUI.TextArea (new Rect (1 / 3 * Screen.width, 1 / 3 * Screen.height, 1 / 3 * Screen.width, 1 / 3 * Screen.height), "Loading...");
-		GUI.TextArea (new Rect (20, 20, 150, 150), "Loading...");
+		//GUI.TextArea (new Rect (20, 20, 150, 150), "Loading...");
 	}
 
 	public void InitializeCar(WWW www, string location) {
 		car = (GameObject)Instantiate (www.assetBundle.mainAsset, 
 		                               new Vector3 (0, 0, 0), Quaternion.Euler (270, 220, 0));
+		mCamera.GetComponent<TouchEvent> ().mCar = car.transform;
 		www.assetBundle.Unload (false);
 
 		for (int i = 0; i < Constant.ComponentUrls.Count; ++i) {
 			GetComponent<MeshLoader>().DownloadMesh(Constant.ComponentUrls[i], Constant.ComponentNames[i], InitializeCarComponents);
-			// 本想从这里控制loading框消失，然而毕竟协程。。。
 			if (i == Constant.ComponentUrls.Count-1) {
 				downLoadFinished = true;
 			}

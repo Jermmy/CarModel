@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AndroidTouch : MonoBehaviour {
+public class TouchEvent : MonoBehaviour {
 
 	// 记录手指触屏的位置
 	Vector2 m_screenpos = new Vector2();
 
-	private Transform mTruck;
+	public Transform mCar;
 
 	private Transform mCamera;
 
@@ -19,7 +19,7 @@ public class AndroidTouch : MonoBehaviour {
 	void Start () {
 		Input.multiTouchEnabled = true;
 		mCamera = transform;
-		mTruck = GameObject.FindWithTag("truck").transform;
+		//mTruck = GameObject.FindWithTag("truck").transform;
 	}
 	
 	// Update is called once per frame
@@ -47,18 +47,18 @@ public class AndroidTouch : MonoBehaviour {
 				Debug.Log("HHHH");
 				if (upMX > mx) {
 					//mCar.Rotate(Vector3.forward * Time.deltaTime * speed);
-					mCamera.RotateAround(mTruck.position, Vector3.up, Time.deltaTime*speed);
+					mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed);
 				} else {
 					//mCar.Rotate(-Vector3.forward*Time.deltaTime*speed);
-					mCamera.RotateAround(mTruck.position, Vector3.up, -Time.deltaTime*speed);
+					mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed);
 				}
 			} else {
 				if (upMY > my) {
 					//mCar.Rotate (Vector3.left * Time.deltaTime * speed);
-					mCamera.RotateAround(mTruck.position, Vector3.left, Time.deltaTime*speed);
+					mCamera.RotateAround(mCar.position, Vector3.left, Time.deltaTime*speed);
 				} else {
 					//mCar.Rotate (-Vector3.left * Time.deltaTime * speed);
-					mCamera.RotateAround(mTruck.position, Vector3.left, -Time.deltaTime*speed);
+					mCamera.RotateAround(mCar.position, Vector3.left, -Time.deltaTime*speed);
 				}
 			}
 		}
@@ -81,18 +81,18 @@ public class AndroidTouch : MonoBehaviour {
 				if (Mathf.Abs (pos.x - m_screenpos.x) > Mathf.Abs (pos.y - m_screenpos.y)) {
 					if (pos.x > m_screenpos.x) {
 						//mCar.Rotate(Vector3.forward * Time.deltaTime * speed);
-						mCamera.RotateAround(mTruck.position, Vector3.up, Time.deltaTime*speed);
+						mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed);
 					} else {
 						//mCar.Rotate(-Vector3.forward*Time.deltaTime*speed);
-						mCamera.RotateAround(mTruck.position, Vector3.up, -Time.deltaTime*speed);
+						mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed);
 					}
 				} else {
 					if (pos.y > m_screenpos.y) {
 						//mCar.Rotate (Vector3.left * Time.deltaTime * speed);
-						mCamera.RotateAround(mTruck.position, Vector3.left, Time.deltaTime*speed);
+						//mCamera.RotateAround(mCar.position, Vector3.left, Time.deltaTime*speed);
 					} else {
 						//mCar.Rotate (-Vector3.left * Time.deltaTime * speed);
-						mCamera.RotateAround(mTruck.position, Vector3.left, -Time.deltaTime*speed);
+						//mCamera.RotateAround(mCar.position, Vector3.left, -Time.deltaTime*speed);
 					}
 				}
 			}

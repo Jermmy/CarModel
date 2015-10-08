@@ -47,11 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Script\AndroidAPI.cs" />
-     <Compile Include="Assets\Script\CarShowScene\AndroidTouch.cs" />
      <Compile Include="Assets\Script\CarShowScene\ChangeComponent.cs" />
      <Compile Include="Assets\Script\CarShowScene\ClickObject.cs" />
      <Compile Include="Assets\Script\CarShowScene\ComponentItem.cs" />
      <Compile Include="Assets\Script\CarShowScene\ComponentScrollView.cs" />
+     <Compile Include="Assets\Script\CarShowScene\TouchEvent.cs" />
      <Compile Include="Assets\Script\CarShowScene\TypeItem.cs" />
      <Compile Include="Assets\Script\CarShowScene\TypeScrollView.cs" />
      <Compile Include="Assets\Script\Constant.cs" />

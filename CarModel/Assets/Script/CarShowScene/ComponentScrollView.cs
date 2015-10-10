@@ -17,12 +17,16 @@ public class ComponentScrollView : MonoBehaviour {
 
 	public Transform mCamera;
 
-	private bool downLoadFinished = false;
+	public List<GameObject> componentItems;
+
+	private bool isBack = false;
+	private bool isWindowShow = false;
 	
 	// Use this for initialization
 	void Start () {
 		car_type_id = Constant.CarTypeId;
-		mCamera = Camera.main.gameObject.transform;
+		//mCamera = Camera.main.gameObject.transform;
+		componentItems = new List<GameObject> ();
 		GetComponent<MeshLoader>().DownloadMesh(Constant.CarModelUrl, "", InitializeCar);
 		WWWForm wwwForm = new WWWForm ();
 		wwwForm.AddField ("api_type", 2);
@@ -32,27 +36,34 @@ public class ComponentScrollView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		if (car != null && mCamera.GetComponent<TouchEvent> ().mCar != null) {
-//			mCamera.GetComponent<TouchEvent> ().mCar = car.transform;
-//		}
-		if (Input.GetKey (KeyCode.Escape)) {
-			Application.LoadLevel("StartScene");
+		if (Input.GetKey (KeyCode.Escape) && isWindowShow == false) {
+			isWindowShow = true;
+			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
+			labelStyle.fontSize = 20;
+			GUILayout.Window(0, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "notice");
 		}
+		
 	}
 
-	void OnGUI() {
-		if (downLoadFinished == false) {
-			//Debug.Log("HH");
-			//GUI.Window(0, new Rect(1/3 * Screen.width, 1/3 * Screen.height, 1/3 * Screen.width, 1/3 * Screen.height), OnWindow, "");
-			//GUI.Window(0, new Rect(100, 100, 100, 100), OnWindow, "");
-			//Debug.Log("screen width: " + Screen.width + " screen height: " + Screen.height);
-			//GUI.Window(0, new Rect(100, 100, 100, 100), OnWindow, "");
+	void WindowCallBack(int windowID) {
+		GUILayout.BeginVertical ();
+		GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
+		labelStyle.fontSize = 30;
+		GUILayout.Label("Do you want to leave?", labelStyle);
+		GUILayout.FlexibleSpace ();
+		
+		GUILayout.BeginHorizontal ();
+		GUIStyle btnStyle = new GUIStyle (GUI.skin.button);
+		btnStyle.fontSize = 30;
+		if (GUILayout.Button ("sure", btnStyle)) {
+			StopAllCoroutines ();
+			Application.LoadLevel ("StartScene");
 		}
-	}
-
-	private void OnWindow(int windowId) {
-		//GUI.TextArea (new Rect (1 / 3 * Screen.width, 1 / 3 * Screen.height, 1 / 3 * Screen.width, 1 / 3 * Screen.height), "Loading...");
-		//GUI.TextArea (new Rect (20, 20, 150, 150), "Loading...");
+		if (GUILayout.Button ("cancel", btnStyle)) {
+			isWindowShow = false;
+		}
+		GUILayout.EndHorizontal ();
+		GUILayout.EndVertical ();
 	}
 
 	public void InitializeCar(WWW www, string location) {
@@ -63,9 +74,6 @@ public class ComponentScrollView : MonoBehaviour {
 
 		for (int i = 0; i < Constant.ComponentUrls.Count; ++i) {
 			GetComponent<MeshLoader>().DownloadMesh(Constant.ComponentUrls[i], Constant.ComponentNames[i], InitializeCarComponents);
-			if (i == Constant.ComponentUrls.Count-1) {
-				downLoadFinished = true;
-			}
 		}
 	}
 
@@ -102,6 +110,16 @@ public class ComponentScrollView : MonoBehaviour {
 			newItem.GetComponent<ComponentItem>().name = jsonArray[i]["name"].ToString();
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
+
+			componentItems.Add(newItem);
+			Color temp = newItem.GetComponent<ComponentItem>().triangle.color;
+			if (i == 0) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			newItem.GetComponent<ComponentItem>().triangle.color = temp;
+
 			newItem.SetActive (true);
 		}
 		SetContentWidth ();
@@ -110,6 +128,18 @@ public class ComponentScrollView : MonoBehaviour {
 			wwwForm.AddField("api_type", 3);
 			wwwForm.AddField("id", (int)jsonArray[0]["id"]);
 			GetComponent<HttpServer>().SendRequest(Constant.ReuestUrl, wwwForm, new HttpServer.GetJson(typeScrollView.InitializeList));
+		}
+	}
+
+	public void OnComponentItemClick(int componentId) {
+		for (int i = 0; i < componentItems.Count; i++) {
+			Color temp = componentItems[i].GetComponent<ComponentItem>().triangle.color;
+			if (componentItems[i].GetComponent<ComponentItem>().componentId == componentId) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			componentItems[i].GetComponent<ComponentItem>().triangle.color = temp;
 		}
 	}
 

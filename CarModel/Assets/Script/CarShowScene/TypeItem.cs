@@ -7,6 +7,7 @@ public class TypeItem : MonoBehaviour, IPointerClickHandler {
 
 	public Text typeText;
 	public Image image;
+	public Image line;
 
 	public int component_type_id;
 	public string img_url;
@@ -15,6 +16,8 @@ public class TypeItem : MonoBehaviour, IPointerClickHandler {
 
 	public ComponentScrollView componentScrollView;
 	Transform car;
+
+	public TypeScrollView typeScrollView;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +29,7 @@ public class TypeItem : MonoBehaviour, IPointerClickHandler {
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
+		typeScrollView.OnTypeItemClick (component_type_id);
 		GetComponent<MeshLoader> ().DownloadMesh (ab_url, location, LoadMesh);
 	}
 		                                      

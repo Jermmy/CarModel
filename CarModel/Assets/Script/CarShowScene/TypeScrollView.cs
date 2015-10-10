@@ -11,9 +11,11 @@ public class TypeScrollView : MonoBehaviour {
 	public RectTransform scrollContent;
 	public ScrollRect scrollRect;
 
+	public List<GameObject> typeItems;
+
 	// Use this for initialization
 	void Start () {
-
+		typeItems = new List<GameObject> ();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +27,7 @@ public class TypeScrollView : MonoBehaviour {
 		for (int i = 0; i < gridLayout.transform.childCount; i++) {
 			Destroy(gridLayout.transform.GetChild(i).gameObject);
 		}
+		typeItems.Clear ();
 	}
 
 	public void SetContentWidth() {
@@ -47,14 +50,34 @@ public class TypeScrollView : MonoBehaviour {
 			newItem.GetComponent<TypeItem>().typeText.text = jsonArray[i]["name"].ToString();
 			newItem.GetComponent<TypeItem>().ab_url = jsonArray[i]["ab_url"].ToString();
 			newItem.GetComponent<ImageLoader>().DisplayImage(newItem.GetComponent<TypeItem>().image, jsonArray[i]["logo_url"].ToString());
-			//newItem.GetComponent<TypeItem>().ab_url = 
 			//newItem.transform.localScale = Vector3.one;
-			//newItem.transform.localScale = new Vector3(0.7f, 0.7f, 0);
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
 			newItem.SetActive (true);
+
+			Color temp = newItem.GetComponent<TypeItem>().line.color;
+			if (i == 0) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			newItem.GetComponent<TypeItem>().line.color = temp;
+			typeItems.Add(newItem);
+
 		}
 		SetContentWidth ();
+	}
+
+	public void OnTypeItemClick(int componentTypeId) {
+		for (int i = 0; i < typeItems.Count; i++) {
+			Color temp = typeItems[i].GetComponent<TypeItem>().line.color;
+			if (typeItems[i].GetComponent<TypeItem>().component_type_id == componentTypeId) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			typeItems[i].GetComponent<TypeItem>().line.color = temp;
+		}
 	}
 
 

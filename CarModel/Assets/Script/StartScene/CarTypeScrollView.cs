@@ -11,20 +11,22 @@ public class CarTypeScrollView : MonoBehaviour {
 	public RectTransform scrollcontent;
 	public ScrollRect scrollRect;
 
+	private List<GameObject> carTypeItems;
+
 	// Use this for initialization
 	void Start () {
-	
+		carTypeItems = new List<GameObject> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	private void ClearAll() {
 		for (int i = 0; i < gridLayout.transform.childCount; i++) {
 			Destroy(gridLayout.transform.GetChild(i).gameObject);
 		}
+		carTypeItems.Clear ();
 		Constant.carTypeItems.Clear ();
 	}
 
@@ -61,16 +63,37 @@ public class CarTypeScrollView : MonoBehaviour {
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
 			newItem.SetActive (true);
+
+			Color temp = newItem.GetComponent<CarTypeItem>().line.color;
+			if (i == 0) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			newItem.GetComponent<CarTypeItem>().line.color = temp;
+
 			Constant.carTypeItems.Add(newItem);
+			carTypeItems.Add(newItem);
 		}
 		SetContentWidth ();
 	}
 
-	public void InitializeListFromCache() {
-		for (int i = 0; i < Constant.carTypeItems.Count; ++i) {
-			Constant.carTypeItems[i].transform.SetParent(gridLayout.transform);
-			Constant.carTypeItems[i].SetActive(true);
+	/** 
+	 * Interface exposed to cartype item when it is clicked
+	 */
+	public void OnCarTypeCliclListener(int carTypeId) {
+		Debug.Log("request id: " + carTypeId);
+		for (int i = 0; i < carTypeItems.Count; i++) {
+			//carTypeItems[i].GetComponent<CarTypeItem>().line.color.a = 0.0f;
+			Color temp = carTypeItems[i].GetComponent<CarTypeItem>().line.color;
+			if (carTypeItems[i].GetComponent<CarTypeItem>().car_type_id == carTypeId) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			carTypeItems[i].GetComponent<CarTypeItem>().line.color = temp;
 		}
+
 	}
 
 }

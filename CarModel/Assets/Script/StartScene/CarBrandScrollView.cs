@@ -11,25 +11,16 @@ public class CarBrandScrollView : MonoBehaviour {
 	public ScrollRect scrollRect;
 
 	public CarTypeScrollView carTypeScrollView;
+	public List<GameObject> brandItems;
+
 
 	// Use this for initialization
 	void Start () {
-		//if (Constant.hasChosed == false) {
-			WWWForm param = new WWWForm ();
-			param.AddField ("api_type", "0");
-			param.AddField ("id", "1");
-			GetComponent<HttpServer> ().SendRequest (Constant.ReuestUrl, param, InitializeList);
-//		} else {
-//			if (Constant.carTypeItems != null && Constant.carBrandItems != null) {
-//				InitializeListFromCache();
-//			} else {
-//				WWWForm param = new WWWForm ();
-//				param.AddField ("api_type", "0");
-//				param.AddField ("id", "1");
-//				GetComponent<HttpServer> ().SendRequest (Constant.ReuestUrl, param, InitializeList);
-//			}
-//		}
-
+		brandItems = new List<GameObject> ();
+		WWWForm param = new WWWForm ();
+		param.AddField ("api_type", "0");
+		param.AddField ("id", "1");
+		GetComponent<HttpServer> ().SendRequest (Constant.ReuestUrl, param, InitializeList);
 	}
 	
 	// Update is called once per frame
@@ -59,6 +50,18 @@ public class CarBrandScrollView : MonoBehaviour {
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent(gridLayout.transform);
 			newItem.SetActive(true);
+
+			Color temp = newItem.GetComponent<CarBrandItem>().triangle.color;
+			if (i == 0) {
+				//Texture2D texture = (Texture2D)Resources.Load("tab_sel");
+				//newItem.GetComponent<CarBrandItem>().triangle.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0));
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			newItem.GetComponent<CarBrandItem>().triangle.color = temp;
+
+			brandItems.Add(newItem);
 			Constant.carBrandItems.Add(newItem);
 		}
 		SetContentWidth ();
@@ -69,21 +72,18 @@ public class CarBrandScrollView : MonoBehaviour {
 			GetComponent<HttpServer>().SendRequest(Constant.ReuestUrl, wwwForm, carTypeScrollView.InitializeList);
 		}
 
-//		for (int i = 0; i < Constant.carBrandItems.Count; ++i) {
-//			DontDestroyOnLoad(Constant.carBrandItems[i]);
-//		}
 	}
 
-//	public void InitializeListFromCache() {
-//		Debug.Log ("Constant.carBrandItems.Count: " + Constant.carBrandItems.Count);
-//		for (int i = 0; i < Constant.carBrandItems.Count; ++i) {
-//			Constant.carBrandItems[i].GetComponent<Re>
-//			Debug.Log(Constant.carBrandItems[i].name);
-//			Constant.carBrandItems[i].transform.SetParent(gridLayout.transform);
-//			Constant.carBrandItems[i].SetActive(true);
-//		}
-//		SetContentWidth ();
-//
-//	}
+	public void OnBrandItemClick(int brandId) {
+		for (int i = 0; i < brandItems.Count; i++) {
+			Color temp = brandItems[i].GetComponent<CarBrandItem>().triangle.color;
+			if (brandItems[i].GetComponent<CarBrandItem>().brand_id == brandId) {
+				temp.a = 255f;
+			} else {
+				temp.a = 0f;
+			}
+			brandItems[i].GetComponent<CarBrandItem>().triangle.color = temp;
+		}
+	}
 
 }

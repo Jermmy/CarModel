@@ -17,12 +17,13 @@ public class Constant : MonoBehaviour {
 
 	public static string CarModelUrl;
 	public static List<string> ComponentUrls = new List<string>();
-	//public static string CarModelName = "";
 	public static List<string> ComponentNames = new List<string> ();
 
 	public static List<GameObject> carBrandItems = new List<GameObject> ();
 	public static List<GameObject> carTypeItems = new List<GameObject> ();
 	public static bool hasChosed = false;
+
+	public static Color lineColor = new Color(78, 89, 116);
 
 	// Use this for initialization
 	void Start () {

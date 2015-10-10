@@ -10,7 +10,10 @@ public class CarBrandItem : MonoBehaviour, IPointerClickHandler {
 	public Image brandImg; 
 	public int brand_id;
 	public string img_url;
+	public Image triangle;
 	public CarTypeScrollView carTypeScrollView;
+
+	public CarBrandScrollView carBrandScrollView;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +27,7 @@ public class CarBrandItem : MonoBehaviour, IPointerClickHandler {
 
 	public void OnPointerClick(PointerEventData eventData) {
 		Debug.Log("click");
+		carBrandScrollView.OnBrandItemClick (brand_id);
 		WWWForm wwwForm = new WWWForm ();
 		wwwForm.AddField ("api_type", 1);
 		wwwForm.AddField ("id", brand_id);

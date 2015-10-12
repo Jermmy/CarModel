@@ -116,7 +116,7 @@ public class ComponentScrollView : MonoBehaviour {
 			newItem.GetComponent<ComponentItem>().name = jsonArray[i]["name"].ToString();
 			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
-
+			newItem.GetComponent<RectTransform>().localScale = newItem.transform.parent.localScale;
 			componentItems.Add(newItem);
 			Color temp = newItem.GetComponent<ComponentItem>().triangle.color;
 			if (i == 0) {

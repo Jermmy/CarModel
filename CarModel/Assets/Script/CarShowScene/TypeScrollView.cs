@@ -51,8 +51,9 @@ public class TypeScrollView : MonoBehaviour {
 			newItem.GetComponent<TypeItem>().ab_url = jsonArray[i]["ab_url"].ToString();
 			newItem.GetComponent<ImageLoader>().DisplayImage(newItem.GetComponent<TypeItem>().image, jsonArray[i]["logo_url"].ToString());
 			//newItem.transform.localScale = Vector3.one;
-			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
+			//newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
+			newItem.GetComponent<RectTransform>().localScale = newItem.transform.parent.localScale;
 			newItem.SetActive (true);
 
 			Color temp = newItem.GetComponent<TypeItem>().line.color;

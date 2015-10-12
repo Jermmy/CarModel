@@ -60,8 +60,9 @@ public class CarTypeScrollView : MonoBehaviour {
 				newItem.GetComponent<CarTypeItem>().componentNames.Add(jsonArray[j].ToString());
 			}
 			//newItem.transform.localScale = Vector3.one;
-			newItem.GetComponent<RectTransform>().localScale = Vector3.one;
+			//newItem.GetComponent<RectTransform>().localScale = Vector3.one;
 			newItem.transform.SetParent (gridLayout.transform);
+			newItem.GetComponent<RectTransform>().localScale = newItem.transform.parent.localScale;
 			newItem.SetActive (true);
 
 			Color temp = newItem.GetComponent<CarTypeItem>().line.color;

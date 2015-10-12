@@ -35,7 +35,7 @@ public class CarTypeItem : MonoBehaviour, IPointerClickHandler {
 		if (showWindow == true) {
 			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
 			labelStyle.fontSize = 20;
-			GUILayout.Window(0, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "notice");
+			GUILayout.Window(0, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "");
 			//GUILayout.Window(0, new Rect(0, 0, Screen.width, Screen.height), WindowCallBack, "notice");
 
 		}
@@ -67,7 +67,7 @@ public class CarTypeItem : MonoBehaviour, IPointerClickHandler {
 	}
 
 	public void OnPointerClick(PointerEventData enentData) {
-		Debug.Log ("click");
+        //Debug.Log ("click");
 
 		showWindow = true;
 		//carTypeScrollView.GetComponent<CarTypeScrollView> ().OnCarTypeCliclListener (car_type_id);

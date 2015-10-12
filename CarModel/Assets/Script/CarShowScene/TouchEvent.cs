@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TouchEvent : MonoBehaviour {
@@ -7,6 +8,8 @@ public class TouchEvent : MonoBehaviour {
 	Vector2 m_screenpos = new Vector2();
 
 	public Transform mCar;
+	public GameObject toolBars;
+	public GameObject scrollView;
 
 	private Transform mCamera;
 
@@ -43,24 +46,24 @@ public class TouchEvent : MonoBehaviour {
 			float upMX = Input.GetAxis("Mouse X");
 			float upMY = Input.GetAxis("Mouse Y");
 			Debug.Log("key up: " + "upMX: " + upMX + " upMY: " + upMY);
-			if (Mathf.Abs (mx - upMX) > Mathf.Abs(my - upMY)) {
-				Debug.Log("HHHH");
-				if (upMX > mx) {
+//			if (Mathf.Abs (mx - upMX) > Mathf.Abs(my - upMY)) {
+				//Debug.Log("HHHH");
+				if (upMX > mx && upMY > toolBars.transform.localPosition.y && my > toolBars.transform.localPosition.y) {
 					//mCar.Rotate(Vector3.forward * Time.deltaTime * speed);
-					mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed);
-				} else {
+					mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed*100);
+			} else if (upMX < mx && upMY > toolBars.transform.localPosition.y && my > toolBars.transform.localPosition.y) {
 					//mCar.Rotate(-Vector3.forward*Time.deltaTime*speed);
-					mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed);
+					mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed*100);
 				}
-			} else {
-				if (upMY > my) {
-					//mCar.Rotate (Vector3.left * Time.deltaTime * speed);
-					mCamera.RotateAround(mCar.position, Vector3.left, Time.deltaTime*speed);
-				} else {
-					//mCar.Rotate (-Vector3.left * Time.deltaTime * speed);
-					mCamera.RotateAround(mCar.position, Vector3.left, -Time.deltaTime*speed);
-				}
-			}
+//			} else {
+//				if (upMY > my) {
+//					//mCar.Rotate (Vector3.left * Time.deltaTime * speed);
+//					mCamera.RotateAround(mCar.position, Vector3.left, Time.deltaTime*speed);
+//				} else {
+//					//mCar.Rotate (-Vector3.left * Time.deltaTime * speed);
+//					mCamera.RotateAround(mCar.position, Vector3.left, -Time.deltaTime*speed);
+//				}
+//			}
 		}
 	}
 
@@ -79,11 +82,11 @@ public class TouchEvent : MonoBehaviour {
 			else if (Input.touches [0].phase == TouchPhase.Moved) {
 				Vector2 pos = Input.touches[0].position;
 				if (Mathf.Abs (pos.x - m_screenpos.x) > Mathf.Abs (pos.y - m_screenpos.y)) {
-					if (pos.x > m_screenpos.x) {
-						//mCar.Rotate(Vector3.forward * Time.deltaTime * speed);
+					if (pos.x > m_screenpos.x && pos.y > toolBars.transform.localPosition.y && m_screenpos.y > toolBars.transform.localPosition.y) {
+
 						mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed);
-					} else {
-						//mCar.Rotate(-Vector3.forward*Time.deltaTime*speed);
+					} else if (pos.x < m_screenpos.x && pos.y > toolBars.transform.localPosition.y && m_screenpos.y > toolBars.transform.localPosition.y) {
+
 						mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed);
 					}
 				} else {
@@ -147,7 +150,10 @@ public class TouchEvent : MonoBehaviour {
 						} else {
 							mov += mov2.y;
 						}
-						Camera.main.transform.Translate(0, 0, mov * Time.deltaTime);
+						if (Vector3.Distance(Camera.main.transform.position, Vector3.zero) <= 5.5) {
+							Camera.main.transform.Translate(0, 0, mov * Time.deltaTime);
+						}
+
 					}
 				}
 			}

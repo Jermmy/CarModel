@@ -51,4 +51,8 @@ public class HttpServer : MonoBehaviour {
 		}
 	}
 
+	void OnDisable() {
+		StopAllCoroutines ();
+	}
+
 }

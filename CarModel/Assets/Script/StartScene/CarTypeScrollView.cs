@@ -82,7 +82,7 @@ public class CarTypeScrollView : MonoBehaviour {
 	 * Interface exposed to cartype item when it is clicked
 	 */
 	public void OnCarTypeCliclListener(int carTypeId) {
-		Debug.Log("request id: " + carTypeId);
+		//Debug.Log("request id: " + carTypeId);
 		for (int i = 0; i < carTypeItems.Count; i++) {
 			//carTypeItems[i].GetComponent<CarTypeItem>().line.color.a = 0.0f;
 			Color temp = carTypeItems[i].GetComponent<CarTypeItem>().line.color;

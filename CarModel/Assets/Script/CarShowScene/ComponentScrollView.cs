@@ -19,7 +19,6 @@ public class ComponentScrollView : MonoBehaviour {
 
 	public List<GameObject> componentItems;
 
-	private bool isBack = false;
 	private bool isWindowShow = false;
 	
 	// Use this for initialization
@@ -38,12 +37,19 @@ public class ComponentScrollView : MonoBehaviour {
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape) && isWindowShow == false) {
 			isWindowShow = true;
-			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
-			labelStyle.fontSize = 20;
-			GUILayout.Window(0, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "notice");
 		}
 		
 	}
+
+	void OnGUI() {
+		if (isWindowShow == true) {
+			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
+			labelStyle.fontSize = 20;
+			GUILayout.Window(1, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "notice");
+		}
+	}
+
+
 
 	void WindowCallBack(int windowID) {
 		GUILayout.BeginVertical ();

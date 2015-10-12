@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ImageTest.cs" />
      <Compile Include="Assets\Script\AndroidAPI.cs" />
+     <Compile Include="Assets\Script\CarShowScene\AdjustBackground.cs" />
      <Compile Include="Assets\Script\CarShowScene\CaptureEvent.cs" />
      <Compile Include="Assets\Script\CarShowScene\ChangeComponent.cs" />
      <Compile Include="Assets\Script\CarShowScene\ClickObject.cs" />

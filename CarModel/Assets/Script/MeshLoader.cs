@@ -21,7 +21,8 @@ public class MeshLoader : MonoBehaviour {
 
 	private IEnumerator DownloadAssetBundle(string url, string location, GetWWW getWWW) {
 		//Debug.Log ("url: " + url);
-		WWW www = new WWW (url);
+		//WWW www = new WWW (url);
+		WWW www = WWW.LoadFromCacheOrDownload (url, 1);
 		yield return www;
 		if (www.error != null) {
 			Debug.Log(www.error);
@@ -40,4 +41,8 @@ public class MeshLoader : MonoBehaviour {
 //		}
 //		www.assetBundle.Unload (true);
 //	}
+
+	void OnDisable() {
+		StopAllCoroutines ();
+	}
 }

@@ -19,16 +19,22 @@ public class ImageLoader : MonoBehaviour {
 	}
 
 	private IEnumerator SendImgRequest(Image image, string url) {
-		//WWW www = WWW.LoadFromCacheOrDownload("file:///Users/xyz/Desktop/car.assetbundle", 1);
-		//WWW www = WWW.LoadFromCacheOrDownload(url, 1);
-		WWW www = new WWW (url);
+//		WWW www = WWW.LoadFromCacheOrDownload("file:///Users/xyz/Desktop/car.assetbundle", 1);
+		WWW www = WWW.LoadFromCacheOrDownload(url, 1);
+//		WWW www = new WWW (url);
 		yield return www;
 //		Texture2D texture2d = (Texture2D)www.assetBundle.Load("car.assetbundle", typeof(Texture2D));
-//		Sprite sprite = Sprite.Create ((Texture2D)texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0));
-		Sprite sprite = Sprite.Create (www.texture, new Rect (0, 0, www.texture.width, www.texture.height), 
-		                       new Vector2 (0, 0));
+////		Sprite sprite = Sprite.Create ((Texture2D)texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0));
+//		Sprite sprite = Sprite.Create (www.texture, new Rect (0, 0, www.texture.width, www.texture.height), 
+//		                       new Vector2 (0, 0));
+//		image.sprite = sprite;
+
+
+		Texture t = www.assetBundle.mainAsset as Texture;
+		Sprite sprite = Sprite.Create ((Texture2D)t, new Rect (0, 0, t.width, t.height), 
+		                               new Vector2 (0, 0));
 		image.sprite = sprite;
-//		image.sprite = www.assetBundle.mainAsset as Sprite;
+		www.assetBundle.Unload (false);
 	}
 
 	void OnDisable() {

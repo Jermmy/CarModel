@@ -35,8 +35,8 @@ public class TypeItem : MonoBehaviour, IPointerClickHandler {
 		                                      
 	private void LoadMesh(WWW www, string location) {
 		car = componentScrollView.car.transform;
-//		car.Find("3D Models at 3dxy").Find(location).GetComponent<MeshFilter>().mesh = 
-//			((GameObject)(www.assetBundle.mainAsset)).GetComponent<MeshFilter> ().mesh;
+		car.Find("3D Models at 3dxy").Find(location).GetComponent<MeshFilter>().mesh = 
+			((GameObject)(www.assetBundle.mainAsset)).GetComponent<MeshFilter> ().mesh;
 		car.Find("3D Models at 3dxy").Find(location).renderer.material = ((GameObject)(www.assetBundle.mainAsset)).renderer.material;
 		www.assetBundle.Unload (false);
 	}

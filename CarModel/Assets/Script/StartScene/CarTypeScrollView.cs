@@ -27,7 +27,7 @@ public class CarTypeScrollView : MonoBehaviour {
 			Destroy(gridLayout.transform.GetChild(i).gameObject);
 		}
 		carTypeItems.Clear ();
-		Constant.carTypeItems.Clear ();
+		//Constant.carTypeItems.Clear ();
 	}
 
 	public void SetContentWidth() {

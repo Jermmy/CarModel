@@ -150,7 +150,7 @@ public class TouchEvent : MonoBehaviour {
 						} else {
 							mov += mov2.y;
 						}
-						if (Vector3.Distance(Camera.main.transform.position, Vector3.zero) <= 5.5) {
+						if (Vector3.Distance(Camera.main.transform.position, Vector3.zero) <= 6) {
 							Camera.main.transform.Translate(0, 0, mov * Time.deltaTime);
 						}
 

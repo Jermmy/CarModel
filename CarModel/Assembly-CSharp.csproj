@@ -46,12 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ImageTest.cs" />
      <Compile Include="Assets\Script\AndroidAPI.cs" />
      <Compile Include="Assets\Script\CarShowScene\AdjustBackground.cs" />
      <Compile Include="Assets\Script\CarShowScene\CaptureEvent.cs" />
-     <Compile Include="Assets\Script\CarShowScene\ChangeComponent.cs" />
-     <Compile Include="Assets\Script\CarShowScene\ClickObject.cs" />
      <Compile Include="Assets\Script\CarShowScene\ComponentItem.cs" />
      <Compile Include="Assets\Script\CarShowScene\ComponentScrollView.cs" />
      <Compile Include="Assets\Script\CarShowScene\TouchEvent.cs" />
@@ -65,7 +62,6 @@
      <Compile Include="Assets\Script\StartScene\CarBrandScrollView.cs" />
      <Compile Include="Assets\Script\StartScene\CarTypeItem.cs" />
      <Compile Include="Assets\Script\StartScene\CarTypeScrollView.cs" />
-     <Compile Include="Assets\Script\ZoomInOut.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

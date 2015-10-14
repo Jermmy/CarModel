@@ -44,8 +44,8 @@ public class ComponentScrollView : MonoBehaviour {
 	void OnGUI() {
 		if (isWindowShow == true) {
 			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
-			labelStyle.fontSize = 20;
-			GUILayout.Window(1, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "notice");
+			//labelStyle.fontSize = 20;
+			GUILayout.Window(3, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "");
 		}
 	}
 
@@ -54,13 +54,13 @@ public class ComponentScrollView : MonoBehaviour {
 	void WindowCallBack(int windowID) {
 		GUILayout.BeginVertical ();
 		GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
-		labelStyle.fontSize = 30;
+		labelStyle.fontSize = 40;
 		GUILayout.Label("Do you want to leave?", labelStyle);
 		GUILayout.FlexibleSpace ();
 		
 		GUILayout.BeginHorizontal ();
 		GUIStyle btnStyle = new GUIStyle (GUI.skin.button);
-		btnStyle.fontSize = 30;
+		btnStyle.fontSize = 40;
 		if (GUILayout.Button ("sure", btnStyle)) {
 			StopAllCoroutines ();
 			Application.LoadLevel ("StartScene");

@@ -13,6 +13,8 @@ public class CarBrandScrollView : MonoBehaviour {
 	public CarTypeScrollView carTypeScrollView;
 	public List<GameObject> brandItems;
 
+	private bool isWindowShow = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +27,39 @@ public class CarBrandScrollView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKey (KeyCode.Escape) && isWindowShow == false) {
+			isWindowShow = true;
+		}
+	}
+
+	void OnGUI() {
+		if (isWindowShow == true) {
+			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
+			//labelStyle.fontSize = 20;
+			GUILayout.Window(1, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "");
+		}
+	}
+
+	void WindowCallBack(int windowID) {
+		GUILayout.BeginVertical ();
+		GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
+		labelStyle.fontSize = 40;
+		GUILayout.Label("Do you want to leave?", labelStyle);
+		GUILayout.FlexibleSpace ();
+		
+		GUILayout.BeginHorizontal ();
+		GUIStyle btnStyle = new GUIStyle (GUI.skin.button);
+		btnStyle.fontSize = 40;
+		if (GUILayout.Button ("sure", btnStyle)) {
+			AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+			AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+			jo.Call ("finishUnity", "");
+		}
+		if (GUILayout.Button ("cancel", btnStyle)) {
+			isWindowShow = false;
+		}
+		GUILayout.EndHorizontal ();
+		GUILayout.EndVertical ();
 	}
 
 	public void SetContentWidth() {

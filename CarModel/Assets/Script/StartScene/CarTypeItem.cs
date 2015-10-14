@@ -35,7 +35,7 @@ public class CarTypeItem : MonoBehaviour, IPointerClickHandler {
 		if (showWindow == true) {
 			GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
 			labelStyle.fontSize = 20;
-			GUILayout.Window(0, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "");
+			GUILayout.Window(2, new Rect(Screen.width*1/3, Screen.height*1/3, Screen.width*1/3, Screen.height*1/3), WindowCallBack, "");
 			//GUILayout.Window(0, new Rect(0, 0, Screen.width, Screen.height), WindowCallBack, "notice");
 
 		}
@@ -44,13 +44,13 @@ public class CarTypeItem : MonoBehaviour, IPointerClickHandler {
 	void WindowCallBack(int windowID) {
 		GUILayout.BeginVertical ();
 		GUIStyle labelStyle = new GUIStyle (GUI.skin.label);
-		labelStyle.fontSize = 30;
+		labelStyle.fontSize = 40;
 		GUILayout.Label("Do you want to choose this car?", labelStyle);
 		GUILayout.FlexibleSpace ();
 
 		GUILayout.BeginHorizontal ();
 		GUIStyle btnStyle = new GUIStyle (GUI.skin.button);
-		btnStyle.fontSize = 30;
+		btnStyle.fontSize = 40;
 		if (GUILayout.Button ("sure", btnStyle)) {
 			Constant.hasChosed = true;
 			Constant.CarTypeId = car_type_id;

@@ -22,11 +22,11 @@ public class TouchEvent : MonoBehaviour {
 	void Start () {
 		Input.multiTouchEnabled = true;
 		mCamera = transform;
-		//mTruck = GameObject.FindWithTag("truck").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//mCamera.RotateAround(mCar.position, Vector3.left, Time.deltaTime*speed);
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 		MobileInput();
 #else 
@@ -45,25 +45,11 @@ public class TouchEvent : MonoBehaviour {
 		} else if (Input.GetMouseButtonUp(0)) {
 			float upMX = Input.GetAxis("Mouse X");
 			float upMY = Input.GetAxis("Mouse Y");
-			Debug.Log("key up: " + "upMX: " + upMX + " upMY: " + upMY);
-//			if (Mathf.Abs (mx - upMX) > Mathf.Abs(my - upMY)) {
-				//Debug.Log("HHHH");
-				if (upMX > mx && upMY > toolBars.transform.localPosition.y && my > toolBars.transform.localPosition.y) {
-					//mCar.Rotate(Vector3.forward * Time.deltaTime * speed);
-					mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed*100);
+			if (upMX > mx && upMY > toolBars.transform.localPosition.y && my > toolBars.transform.localPosition.y) {
+				mCamera.RotateAround(mCar.position, Vector3.up, Time.deltaTime*speed*100);
 			} else if (upMX < mx && upMY > toolBars.transform.localPosition.y && my > toolBars.transform.localPosition.y) {
-					//mCar.Rotate(-Vector3.forward*Time.deltaTime*speed);
-					mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed*100);
-				}
-//			} else {
-//				if (upMY > my) {
-//					//mCar.Rotate (Vector3.left * Time.deltaTime * speed);
-//					mCamera.RotateAround(mCar.position, Vector3.left, Time.deltaTime*speed);
-//				} else {
-//					//mCar.Rotate (-Vector3.left * Time.deltaTime * speed);
-//					mCamera.RotateAround(mCar.position, Vector3.left, -Time.deltaTime*speed);
-//				}
-//			}
+				mCamera.RotateAround(mCar.position, Vector3.up, -Time.deltaTime*speed*100);
+			}
 		}
 	}
 
@@ -150,10 +136,20 @@ public class TouchEvent : MonoBehaviour {
 						} else {
 							mov += mov2.y;
 						}
-						if (Vector3.Distance(Camera.main.transform.position, Vector3.zero) <= 6) {
+
+						if ((Vector3.Distance(Camera.main.transform.position, Vector3.zero) >= 5.5 && mov < 0)
+						    || Vector3.Distance(Camera.main.transform.position, Vector3.zero) <= 0.2 && mov > 0) {
+							return;
+						} else {
 							Camera.main.transform.Translate(0, 0, mov * Time.deltaTime);
 						}
 
+//						Vector3 newPos = Camera.main.transform.position + new Vector3(0, 0, mov * Time.deltaTime);
+//						if (mCar != null && Vector3.Distance(newPos, mCar.position) <= 5.8f) {
+//							Camera.main.transform.Translate(0, 0, mov * Time.deltaTime);
+//						} else if (mCar != null && Vector3.Distance(newPos, mCar.position) > 5.8f && mov > 0) {
+//							Camera.main.transform.Translate(0, 0, mov * Time.deltaTime);
+//						}
 					}
 				}
 			}
